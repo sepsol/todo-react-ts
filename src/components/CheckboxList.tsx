@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       maxWidth: 720,
       backgroundColor: theme.palette.background.paper,
-      margin: '25px auto 0'
+      margin: '25px auto'
     }
   })
 );
