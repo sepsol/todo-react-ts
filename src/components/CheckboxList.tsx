@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TodoContext } from '../contexts/TodoContext';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -21,6 +22,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function CheckboxList() {
+  const { array } = useContext(TodoContext);
+
   const classes = useStyles();
   const [checked, setChecked] = React.useState([0]);
 
@@ -37,9 +40,10 @@ function CheckboxList() {
     setChecked(newChecked);
   };
 
+  // console.log(array);
   return (
     <List className={classes.root}>
-      {[0, 1, 2, 3].map(value => {
+      {array!.map(value => {
         const labelId = `checkbox-list-label-${value}`;
 
         return (
