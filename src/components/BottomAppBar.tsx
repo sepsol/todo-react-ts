@@ -40,7 +40,7 @@ function BottomAppBar() {
           <TextField
             id="standard-full-width"
             className={classes.textField}
-            placeholder="Add a new todo"
+            placeholder="Add a new todo..."
             fullWidth
             margin="normal"
             InputLabelProps={{

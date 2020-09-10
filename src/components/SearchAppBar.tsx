@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
       display: 'none',
+      textAlign: 'center',
       [theme.breakpoints.up('sm')]: {
         display: 'block'
       }
@@ -86,7 +87,7 @@ function SearchAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
+            Todo App
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
