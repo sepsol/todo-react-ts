@@ -32,6 +32,7 @@ function todoReducer(state: TodosStateType, action: TodosActionType) {
         }
       ];
     case 'DELETE_TODO':
+      // console.log(action.payload.id);
       return [
         ...state.filter((todo: TodoType) => todo.id !== action.payload.id)
       ];

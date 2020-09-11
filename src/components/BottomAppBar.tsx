@@ -40,7 +40,7 @@ function BottomAppBar() {
     e.preventDefault();
     dispatch({
       type: 'CREATE_TODO',
-      payload: { id: 100, title, isDone: false }
+      payload: { title, isDone: false }
     });
     setTitle('');
   }

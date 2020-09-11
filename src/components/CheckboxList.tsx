@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
 function CheckboxList() {
   const classes = useStyles();
 
-  const { state: todos } = useContext(TodoContext);
+  const { state: todos, dispatch } = useContext(TodoContext);
   const [checked, setChecked] = React.useState([0]);
 
   const handleToggle = (id: number) => () => {
@@ -65,7 +65,16 @@ function CheckboxList() {
             </ListItemIcon>
             <ListItemText id={labelId} primary={todo.title} />
             <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="comments">
+              <IconButton
+                edge="end"
+                aria-label="comments"
+                onClick={() =>
+                  dispatch({
+                    type: 'DELETE_TODO',
+                    payload: { id: todo.id }
+                  })
+                }
+              >
                 <CommentIcon />
               </IconButton>
             </ListItemSecondaryAction>
