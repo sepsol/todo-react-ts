@@ -9,7 +9,6 @@ type TodoType = {
 
 type InitialStateType = {
   todos: TodoType[];
-  // shoppingCart: number;
 };
 
 const initialState = {
@@ -19,7 +18,7 @@ const initialState = {
 export const TodoContext = createContext<InitialStateType>(initialState);
 
 function TodoContextProvider({ children }: any) {
-  const [state, dispatch] = useReducer(mainReducer, initialState);
+  const [todos, dispatch] = useReducer(todoReducer, initialState);
 
   return (
     <TodoContext.Provider value={{ todos, dispatch }}>
