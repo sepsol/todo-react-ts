@@ -1,27 +1,52 @@
 import React, { createContext, useReducer } from 'react';
-import todoReducer from '../reducers/todoReducer';
 
-type TodoType = {
+interface TodoType {
   id: number;
   title: string;
   isDone: boolean;
-};
+}
 
-type InitialStateType = {
-  todos: TodoType[];
-};
+type TodosStateType = any;
+// type TodosStateType = TodoType[];
 
-const initialState = {
-  todos: []
-};
+interface TodosActionType {
+  type: string;
+  payload: {
+    id: number;
+    title: string;
+    isDone: boolean;
+  };
+}
 
-export const TodoContext = createContext<InitialStateType>(initialState);
+const initialState: TodosStateType = [{ id: 0, title: 'title', isDone: false }];
+
+function todoReducer(state: TodosStateType, action: TodosActionType) {
+  switch (action.type) {
+    case 'CREATE_TODO':
+      return [
+        ...state,
+        {
+          id: action.payload.id,
+          title: action.payload.title,
+          isDone: action.payload.isDone
+        }
+      ];
+    case 'DELETE_TODO':
+      return [
+        ...state.filter((todo: TodoType) => todo.id !== action.payload.id)
+      ];
+    default:
+      return state;
+  }
+}
+
+export const TodoContext = createContext<TodosStateType>(initialState);
 
 function TodoContextProvider({ children }: any) {
-  const [todos, dispatch] = useReducer(todoReducer, initialState);
+  const [state, dispatch] = useReducer(todoReducer, initialState);
 
   return (
-    <TodoContext.Provider value={{ todos, dispatch }}>
+    <TodoContext.Provider value={{ state, dispatch }}>
       {children}
     </TodoContext.Provider>
   );

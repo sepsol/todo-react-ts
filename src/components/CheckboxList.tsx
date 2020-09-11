@@ -22,17 +22,17 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function CheckboxList() {
-  const { array } = useContext(TodoContext);
+  const { state: todos } = useContext(TodoContext);
 
   const classes = useStyles();
   const [checked, setChecked] = React.useState([0]);
 
-  const handleToggle = (value: number) => () => {
-    const currentIndex = checked.indexOf(value);
+  const handleToggle = (id: number) => () => {
+    const currentIndex = checked.indexOf(id);
     const newChecked = [...checked];
 
     if (currentIndex === -1) {
-      newChecked.push(value);
+      newChecked.push(id);
     } else {
       newChecked.splice(currentIndex, 1);
     }
@@ -43,27 +43,27 @@ function CheckboxList() {
   // console.log(array);
   return (
     <List className={classes.root}>
-      {array!.map(value => {
-        const labelId = `checkbox-list-label-${value}`;
+      {todos.map((todo: any) => {
+        const labelId = `checkbox-list-label-${todo.id}`;
 
         return (
           <ListItem
-            key={value}
+            key={todo.id}
             role={undefined}
             dense
             button
-            onClick={handleToggle(value)}
+            onClick={handleToggle(todo.id)}
           >
             <ListItemIcon>
               <Checkbox
                 edge="start"
-                checked={checked.indexOf(value) !== -1}
+                checked={checked.indexOf(todo.id) !== -1}
                 tabIndex={-1}
                 disableRipple
                 inputProps={{ 'aria-labelledby': labelId }}
               />
             </ListItemIcon>
-            <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+            <ListItemText id={labelId} primary={`Line item ${todo.id + 1}`} />
             <ListItemSecondaryAction>
               <IconButton edge="end" aria-label="comments">
                 <CommentIcon />
