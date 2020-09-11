@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { TodoContext } from '../contexts/TodoContext';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -32,11 +33,22 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function BottomAppBar() {
   const classes = useStyles();
+  const { dispatch } = useContext(TodoContext);
+  const [title, setTitle] = useState('');
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    dispatch({
+      type: 'CREATE_TODO',
+      payload: { id: 100, title, isDone: false }
+    });
+    setTitle('');
+  }
 
   return (
     <AppBar position="fixed" color="primary" className={classes.appBar}>
       <Toolbar>
-        <form className={classes.newTodoForm}>
+        <form className={classes.newTodoForm} onSubmit={handleSubmit}>
           <TextField
             id="standard-full-width"
             className={classes.textField}
@@ -46,8 +58,15 @@ function BottomAppBar() {
             InputLabelProps={{
               shrink: true
             }}
+            value={title}
+            onChange={e => setTitle(e.target.value)}
           />
-          <IconButton color="primary" size="small" className={classes.addIcon}>
+          <IconButton
+            color="primary"
+            size="small"
+            className={classes.addIcon}
+            onClick={handleSubmit}
+          >
             <AddIcon fontSize="large" />
           </IconButton>
         </form>

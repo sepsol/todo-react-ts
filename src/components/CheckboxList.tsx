@@ -22,9 +22,9 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function CheckboxList() {
-  const { state: todos } = useContext(TodoContext);
-
   const classes = useStyles();
+
+  const { state: todos } = useContext(TodoContext);
   const [checked, setChecked] = React.useState([0]);
 
   const handleToggle = (id: number) => () => {
@@ -63,7 +63,7 @@ function CheckboxList() {
                 inputProps={{ 'aria-labelledby': labelId }}
               />
             </ListItemIcon>
-            <ListItemText id={labelId} primary={`Line item ${todo.id + 1}`} />
+            <ListItemText id={labelId} primary={todo.title} />
             <ListItemSecondaryAction>
               <IconButton edge="end" aria-label="comments">
                 <CommentIcon />

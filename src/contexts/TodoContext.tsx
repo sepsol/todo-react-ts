@@ -10,7 +10,7 @@ type TodosStateType = any;
 // type TodosStateType = TodoType[];
 
 interface TodosActionType {
-  type: string;
+  type: 'CREATE_TODO' | 'DELETE_TODO';
   payload: {
     id: number;
     title: string;
@@ -26,7 +26,7 @@ function todoReducer(state: TodosStateType, action: TodosActionType) {
       return [
         ...state,
         {
-          id: action.payload.id,
+          id: state.length,
           title: action.payload.title,
           isDone: action.payload.isDone
         }
