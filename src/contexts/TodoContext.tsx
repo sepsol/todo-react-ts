@@ -1,15 +1,30 @@
-import React, { createContext } from 'react';
+import React, { createContext, useReducer } from 'react';
+import todoReducer from '../reducers/todoReducer';
 
-type ContextProps = {
-  array: number[];
+type TodoType = {
+  id: number;
+  title: string;
+  isDone: boolean;
 };
 
-export const TodoContext = createContext<Partial<ContextProps>>({});
+type InitialStateType = {
+  todos: TodoType[];
+  // shoppingCart: number;
+};
+
+const initialState = {
+  todos: []
+};
+
+export const TodoContext = createContext<InitialStateType>(initialState);
 
 function TodoContextProvider({ children }: any) {
-  const array = [10, 11, 12, 13];
+  const [state, dispatch] = useReducer(mainReducer, initialState);
+
   return (
-    <TodoContext.Provider value={{ array }}>{children}</TodoContext.Provider>
+    <TodoContext.Provider value={{ todos, dispatch }}>
+      {children}
+    </TodoContext.Provider>
   );
 }
 
