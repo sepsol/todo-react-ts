@@ -18,7 +18,7 @@ interface TodosActionType {
   };
 }
 
-const initialState: TodosStateType = [];
+const initialState: TodosStateType = [{ id: 0, title: 'title', isDone: false }];
 
 function todoReducer(state: TodosStateType, action: TodosActionType) {
   switch (action.type) {
