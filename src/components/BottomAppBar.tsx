@@ -38,13 +38,11 @@ function BottomAppBar() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (title) {
-      dispatch({
-        type: 'CREATE_TODO',
-        payload: { title, isDone: false }
-      });
-      setTitle('');
-    }
+    dispatch({
+      type: 'CREATE_TODO',
+      payload: { title, isDone: false }
+    });
+    setTitle('');
   }
 
   return (

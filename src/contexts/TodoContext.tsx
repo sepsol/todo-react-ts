@@ -6,33 +6,34 @@ interface TodoType {
   isDone: boolean;
 }
 
-type TodosStateType = any;
-// type TodosStateType = TodoType[];
+// type TodosStateType = any;
+type TodosStateType = TodoType[];
 
 interface TodosActionType {
   type: 'CREATE_TODO' | 'DELETE_TODO';
   payload: {
-    id: number;
-    title: string;
-    isDone: boolean;
+    id?: number;
+    title?: string;
+    isDone?: boolean;
   };
 }
 
-const initialState: TodosStateType = [{ id: 0, title: 'title', isDone: false }];
+const initialState: TodosStateType = [];
 
 function todoReducer(state: TodosStateType, action: TodosActionType) {
   switch (action.type) {
     case 'CREATE_TODO':
-      return [
-        ...state,
-        {
-          id: state.length,
-          title: action.payload.title,
-          isDone: action.payload.isDone
-        }
-      ];
+      if (action.payload.title && action.payload.isDone) {
+        return [
+          ...state,
+          {
+            id: state.length,
+            title: action.payload.title,
+            isDone: action.payload.isDone
+          }
+        ];
+      } else return state;
     case 'DELETE_TODO':
-      // console.log(action.payload.id);
       return [
         ...state.filter((todo: TodoType) => todo.id !== action.payload.id)
       ];
@@ -41,7 +42,10 @@ function todoReducer(state: TodosStateType, action: TodosActionType) {
   }
 }
 
-export const TodoContext = createContext<TodosStateType>(initialState);
+export const TodoContext = createContext<{
+  state: TodosStateType;
+  dispatch: React.Dispatch<TodosActionType>;
+}>({ state: initialState, dispatch: () => {} });
 
 function TodoContextProvider({ children }: any) {
   const [state, dispatch] = useReducer(todoReducer, initialState);
